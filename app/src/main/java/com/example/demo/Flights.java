@@ -13,6 +13,13 @@ public class Flights {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    private Date date;
+    private Long pilotId;
+    private Long planeId;
+    private String destination;
+    private String origin;
+    private String notes;
 
     public Long getId() {
         return id;
@@ -53,15 +60,6 @@ public class Flights {
     public void setDestination(String destination) {
         this.destination = destination;
     }
-
-
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
-    private Date date;
-    private Long pilotId;
-    private Long planeId;
-    private String destination;
-    private String origin;
-    private String notes;
 
     public String getNotes() {
         return notes;

@@ -108,37 +108,31 @@ public class FlightController {
     @GetMapping("/flights/assign")
     public String assignFlights(){
         Random random = new Random();
-    Iterable<Flights> flights = this.flightsRepo.retrieveEmpty();
-        System.out.println(flights);
-    Iterable<Users> users = this.usersRepo.findAll();
-    for (Flights flight: flights){
-        LinkedList<Users> availableUsers = new LinkedList<>();
-        for (Users user: users){
-            boolean isAvailable = true;
-            Iterable<Date> datesAssigned = this.usersRepo.retrieveDates(user.getId());
+        Iterable<Flights> flights = this.flightsRepo.retrieveEmpty();
+        Iterable<Users> users = this.usersRepo.getPilots();
+        for (Flights flight: flights){
+            LinkedList<Users> availableUsers = new LinkedList<>();
+            for (Users user: users){
+                boolean isAvailable = true;
+                Iterable<Date> datesAssigned = this.usersRepo.retrieveDates(user.getId());
 
-            for (Date date: datesAssigned){
-                if (date.equals(flight.getDate())){
-                    isAvailable = false;
-                    break;
+                for (Date date: datesAssigned){
+                    if (date.equals(flight.getDate())){
+                        isAvailable = false;
+                        break;
+                    }
+                }
+                if (isAvailable){
+                    availableUsers.add(user);
                 }
             }
-            if (isAvailable){
-                System.out.println("Hit!");
-                availableUsers.add(user);
+            if(availableUsers.size() > 0) {
+                int index = random.nextInt(availableUsers.size());
+                flight.setPilotId(availableUsers.get(index).getId());
+                this.flightsRepo.save(flight);
             }
-
         }
-        if(availableUsers.size() > 0) {
-            int index = random.nextInt(availableUsers.size());
-            flight.setPilotId(availableUsers.get(index).getId());
-            this.flightsRepo.save(flight);
-        }
-    }
-
-
-
-        return"Assigned!";
+        return "Assigned!";
     }
 
 

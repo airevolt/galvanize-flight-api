@@ -14,8 +14,8 @@ public class Users {
     private Long id;
     private String username;
     private String password;
-    private boolean isAdmin;
-    private boolean isPilot;
+    private Boolean isAdmin;
+    private Boolean isPilot;
 
 
     public Long getId() {
@@ -42,23 +42,21 @@ public class Users {
         this.password = password;
     }
 
-    public boolean isAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setIsAdmin(Boolean admin) {
         isAdmin = admin;
     }
 
-    public boolean isPilot() {
+    public Boolean getIsPilot() {
         return isPilot;
     }
 
-    public void setPilot(boolean pilot) {
+    public void setIsPilot(Boolean pilot) {
         isPilot = pilot;
     }
-
-
 }
 
 
